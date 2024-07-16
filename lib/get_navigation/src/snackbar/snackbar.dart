@@ -492,16 +492,23 @@ You need to either use message[String], or messageText[Widget] or define a userI
             mainAxisSize: MainAxisSize.max,
             children: [
               _buildLeftBarIndicator(),
-              if (_rowStyle == RowStyle.icon || _rowStyle == RowStyle.all)
-                ConstrainedBox(
-                  constraints: BoxConstraints.tightFor(width: 42.0 + iconPadding),
-                  child: _getIcon(),
+              if (_rowStyle == RowStyle.icon || _rowStyle == RowStyle.all) ...[
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: SizedBox(
+                    height: 32,
+                    width: 32,
+                    child: _getIcon(),
+                  ),
                 ),
+                const SizedBox(
+                  width: 12,
+                )
+              ],
               Expanded(
                 flex: 1,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     if (_isTitlePresent)
@@ -525,9 +532,11 @@ You need to either use message[String], or messageText[Widget] or define a userI
                       _emptyWidget,
                     Padding(
                       padding: EdgeInsets.only(
+                        top: _isTitlePresent ? 0 : widget.padding.top,
                         left: left,
                         right: right,
-                        bottom: widget.padding.bottom + (widget.bottomBarIndicatorHeight ?? 0),
+                        bottom: widget.padding.bottom +
+                            (_isTitlePresent ? widget.bottomBarIndicatorHeight ?? 0 : 0),
                       ),
                       child: widget.messageText ??
                           Text(
