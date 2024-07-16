@@ -238,7 +238,6 @@ class SSSnackBarState extends State<SSSnackBar> with TickerProviderStateMixin {
   final Duration _pulseAnimationDuration = const Duration(seconds: 1);
 
   late bool _isTitlePresent;
-  late double _messageTopMargin;
 
   FocusScopeNode? _focusNode;
   late FocusAttachment _focusAttachment;
@@ -370,7 +369,6 @@ class SSSnackBarState extends State<SSSnackBar> with TickerProviderStateMixin {
 You need to either use message[String], or messageText[Widget] or define a userInputForm[Form] in GetSnackbar''');
 
     _isTitlePresent = (widget.title != null || widget.titleText != null);
-    _messageTopMargin = _isTitlePresent ? 6.0 : widget.padding.top;
 
     _configureLeftBarFuture();
     _configureProgressIndicatorAnimation();
@@ -524,7 +522,7 @@ You need to either use message[String], or messageText[Widget] or define a userI
               Expanded(
                 flex: 1,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     if (_isTitlePresent)
@@ -548,7 +546,6 @@ You need to either use message[String], or messageText[Widget] or define a userI
                       _emptyWidget,
                     Padding(
                       padding: EdgeInsets.only(
-                        top: _messageTopMargin,
                         left: left,
                         right: right,
                         bottom: widget.padding.bottom,
