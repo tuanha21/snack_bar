@@ -522,7 +522,8 @@ You need to either use message[String], or messageText[Widget] or define a userI
               Expanded(
                 flex: 1,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     if (_isTitlePresent)
