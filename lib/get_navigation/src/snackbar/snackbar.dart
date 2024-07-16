@@ -494,7 +494,7 @@ You need to either use message[String], or messageText[Widget] or define a userI
               _buildLeftBarIndicator(),
               if (_rowStyle == RowStyle.icon || _rowStyle == RowStyle.all) ...[
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  padding: widget.padding,
                   child: SizedBox(
                     height: 32,
                     width: 32,
@@ -502,13 +502,13 @@ You need to either use message[String], or messageText[Widget] or define a userI
                   ),
                 ),
                 const SizedBox(
-                  width: 12,
+                  width: 4,
                 )
               ],
               Expanded(
                 flex: 1,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     if (_isTitlePresent)
@@ -536,7 +536,7 @@ You need to either use message[String], or messageText[Widget] or define a userI
                         left: left,
                         right: right,
                         bottom: widget.padding.bottom +
-                            (_isTitlePresent ? widget.bottomBarIndicatorHeight ?? 0 : 0),
+                            (_isTitlePresent ? (widget.bottomBarIndicatorHeight ?? 0) : 0),
                       ),
                       child: widget.messageText ??
                           Text(
