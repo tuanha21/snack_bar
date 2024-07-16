@@ -2,7 +2,6 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get_snack_bar/get_core/get_core.dart';
 
 import '../../get_snack_bar.dart';
 
@@ -103,9 +102,11 @@ extension ExtensionSnackbar on GetInterface {
   }
 
   SnackbarController snackbar(
-    BuildContext context,
-    String title,
-    String message, {
+    BuildContext context, {
+    String? title,
+    String? message,
+    TextStyle? titleStyle,
+    TextStyle? messageStyle,
     Color? colorText,
     Duration? duration = const Duration(seconds: 3),
 
@@ -150,27 +151,29 @@ extension ExtensionSnackbar on GetInterface {
     final getSnackBar = SSSnackBar(
         snackbarStatus: snackbarStatus,
         titleText: titleText ??
-            Text(
-              title,
-              style: TextStyle(
-                color: colorText ??
-                    Theme.of(context).iconTheme.color ??
-                    Colors.black,
-                fontWeight: FontWeight.w800,
-                fontSize: 16,
-              ),
-            ),
+            (title != null
+                ? Text(
+                    title,
+                    style: titleStyle ??
+                        (TextStyle(
+                          color: colorText ?? Theme.of(context).iconTheme.color ?? Colors.black,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 16,
+                        )),
+                  )
+                : null),
         messageText: messageText ??
-            Text(
-              message,
-              style: TextStyle(
-                color: colorText ??
-                    Theme.of(context).iconTheme.color ??
-                    Colors.black,
-                fontWeight: FontWeight.w300,
-                fontSize: 14,
-              ),
-            ),
+            (message != null
+                ? Text(
+                    message,
+                    style: messageStyle ??
+                        TextStyle(
+                          color: colorText ?? Theme.of(context).iconTheme.color ?? Colors.black,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 14,
+                        ),
+                  )
+                : null),
         snackPosition: snackPosition ?? SnackPosition.top,
         borderRadius: borderRadius ?? 15,
         margin: margin ?? const EdgeInsets.symmetric(horizontal: 10),
@@ -222,8 +225,7 @@ extension GetNavigationExt on GetInterface {
   /// Returns true if a Snackbar, Dialog or BottomSheet is currently OPEN
 
   /// check if snackbar is open
-  bool get isSnackbarOpen =>
-      SnackbarController.isSnackbarBeingShown; //routing.isSnackbar;
+  bool get isSnackbarOpen => SnackbarController.isSnackbarBeingShown; //routing.isSnackbar;
 
   void closeAllSnackbars(BuildContext context) {
     SnackbarController.cancelAllSnackbars(context);
@@ -244,11 +246,9 @@ extension GetNavigationExt on GetInterface {
   Locale? get deviceLocale => PlatformDispatcher.instance.locale;
 
   ///The number of device pixels for each logical pixel.
-  double get pixelRatio =>
-      PlatformDispatcher.instance.views.first.devicePixelRatio;
+  double get pixelRatio => PlatformDispatcher.instance.views.first.devicePixelRatio;
 
-  Size get size =>
-      PlatformDispatcher.instance.views.first.physicalSize / pixelRatio;
+  Size get size => PlatformDispatcher.instance.views.first.physicalSize / pixelRatio;
 
   ///The horizontal extent of this size.
   double get width => size.width;
@@ -258,13 +258,11 @@ extension GetNavigationExt on GetInterface {
 
   ///The distance from the top edge to the first unpadded pixel,
   ///in physical pixels.
-  double get statusBarHeight =>
-      PlatformDispatcher.instance.views.first.padding.top;
+  double get statusBarHeight => PlatformDispatcher.instance.views.first.padding.top;
 
   ///The distance from the bottom edge to the first unpadded pixel,
   ///in physical pixels.
-  double get bottomBarHeight =>
-      PlatformDispatcher.instance.views.first.padding.bottom;
+  double get bottomBarHeight => PlatformDispatcher.instance.views.first.padding.bottom;
 
   ///The system-reported text scale.
   double get textScaleFactor => PlatformDispatcher.instance.textScaleFactor;
